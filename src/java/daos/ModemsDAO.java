@@ -80,7 +80,7 @@ public class ModemsDAO
         }
         
         return arrRespuesta;
-    }/*
+    }
     public static ArrayList<Modem> findByObservacion(String observacion)
     {
         ArrayList<Modem> arrProvisorio = findAll();
@@ -116,7 +116,7 @@ public class ModemsDAO
         }
         
         return arrRespuesta;
-    }*/
+    }
     public static boolean save(Modem modem)
     {
         boolean ok = false;
@@ -151,33 +151,31 @@ public class ModemsDAO
     }
     
     
-    public static boolean delete(String name)
+    public static boolean delete(Modem modem)
     {
-        boolean respuesta = false;
-        boolean respuesta1 = false;
-        boolean respuesta2 = false;
-        boolean respuesta3 = false;
+        boolean borro1 = false;
+        boolean borro2 = false;
+        boolean borro3 = false;
         
-        ArrayList<Modem> arr = findByName(name);
-         
-        if(arr.size() > 0)
+        if(modem.getDireccionIP() != null)
         {
-           respuesta1 = daos.AbstractDAO.deleteOne(arr.get(0).getRadreplyIP());
-           respuesta2 = daos.AbstractDAO.deleteOne(arr.get(0).getRadreplyNetMask());
-           respuesta3 = daos.AbstractDAO.deleteOne(arr.get(0).getRadcheckObservaciones());
-           
-           if(respuesta1 && respuesta2  && respuesta3)
-           {
-              respuesta = true; 
-           }
+            borro1 = DAOEclipse.remove(modem.getRadreplyIP());
         }
-         return respuesta;
+        if(modem.getRadreplyNetMask() != null)
+        {
+            borro2 = DAOEclipse.remove(modem.getRadreplyNetMask());
+        }
+        if(modem.getDireccionIP() != null)
+        {
+            borro3 = DAOEclipse.remove(modem.getRadcheckObservaciones());
+        }
+        return  borro1 && borro2 && borro3;
     }
     public static boolean update(Modem modem)
     {
-        boolean ok1 = daos.AbstractDAO.updateOne(modem.getRadreplyIP());
-        boolean ok2 = daos.AbstractDAO.updateOne(modem.getRadreplyNetMask());
-        boolean ok3 = daos.AbstractDAO.updateOne(modem.getRadcheckObservaciones());
+        boolean ok1 = daos.DAOEclipse.update(modem.getRadreplyIP());
+        boolean ok2 = daos.DAOEclipse.update(modem.getRadreplyNetMask());
+        boolean ok3 = daos.DAOEclipse.update(modem.getRadcheckObservaciones());
         
         if(ok1 && ok2 && ok3)
         {
@@ -190,12 +188,28 @@ public class ModemsDAO
     }
     public static boolean update2(Modem modem)
     {
-        java.util.ArrayList<Object> arrObjetosActualizados = new java.util.ArrayList<Object>();
-        arrObjetosActualizados.add(modem.getRadreplyIP());
+       /* arrObjetosActualizados.add(modem.getRadreplyIP());
         arrObjetosActualizados.add(modem.getRadreplyNetMask());
-        arrObjetosActualizados.add(modem.getRadcheckObservaciones());
+        arrObjetosActualizados.add(modem.getRadcheckObservaciones());*/
         
+        boolean actualizo1 = false;
+        boolean actualizo2 = false;
+        boolean actualizo3 = false;
         
-        return daos.AbstractDAO.updateAll(arrObjetosActualizados);
+        if(modem.getRadreplyIP() != null)
+        {
+            actualizo1 = daos.DAOEclipse.update(modem.getRadreplyIP());
+        }
+        if(modem.getRadreplyNetMask() != null)
+        {
+            actualizo2 = daos.DAOEclipse.update(modem.getRadreplyNetMask());
+        }
+        if(modem.getRadcheckObservaciones() != null)
+        {
+            actualizo3 = daos.DAOEclipse.update(modem.getRadcheckObservaciones());
+        }
+        
+        //PASSWORD, IP, DESCRIPCIOn
+        return actualizo1 && actualizo2 && actualizo3;
     }
 }

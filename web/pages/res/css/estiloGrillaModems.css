@@ -1,0 +1,30 @@
+#wrap-grilla-modems
+{
+    max-height: 450px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    //border:solid 2px black;
+}
+#grillaModems
+{
+    text-align: center;
+    font-family: Prototype;
+    font-size: 18px;
+    
+}
+#grillaModems td
+{
+    vertical-align: middle;
+}
+#grillaModems th
+{
+    cursor: pointer;
+    vertical-align: middle;
+    text-align: center;
+    transition:1s;
+}
+#grillaModems th:hover
+{
+    text-decoration: underline;
+    transition:1s;
+}

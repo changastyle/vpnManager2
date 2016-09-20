@@ -8,9 +8,9 @@ public class RadcheckDAO
     {
         java.util.ArrayList<model.Radcheck>  arr = new java.util.ArrayList<model.Radcheck> ();
         
-        String hql = "from Radcheck";
+        String hql = "SELECT r FROM Radcheck r";
         
-        for(Object o : daos.AbstractDAO.findAll(hql))
+        for(Object o : daos.DAOEclipse.findAllByJPQL(hql))
         {
             arr.add((model.Radcheck) o);
         }
@@ -21,6 +21,6 @@ public class RadcheckDAO
 
     public static boolean save(Radcheck radcheck)
     {
-        return daos.AbstractDAO.saveOneNew(radcheck);
+        return daos.DAOEclipse.save(radcheck);
     }
 }

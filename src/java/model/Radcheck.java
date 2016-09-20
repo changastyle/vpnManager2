@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity @Table(name="radcheck")
 public class Radcheck
 {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String username;
     private String attribute;

@@ -8,57 +8,74 @@
         
         <!-- banner -->
         <%@include file="banner.jsp" %>
-        
-        <!-- jumbo
-        <div id="jumbo" class=" container">
-            <button type="button" class="close" data-dismiss="modal" onclick="$('#jumbo').hide('slow');">&times;</button>
-            <h3 class="hx col-xs-4 col-xs-offset-4" style='display: block;'>Esta seccion es para generar entradas VPN para agencias..</h3>   
-            
-        </div>-->
-            
-        
-        <!--<div class="container" ng-include="'gridModem.jsp'"></div>-->
-        
+       
+        <!-- CONTAINER -->
         <div class="container" style="box-shadow: 15px 15px 15px black;border-radius: 10px;background-color: rgba(255,255,255,0.8)">
+       
+            <!-- NOTIFICACIONES: -->
+            <!-- LOG -->
+            <div id="botonera">
+                <div class="alert alert-success col-xs-12" style="margin-top: 15px;" ng-show='logok'>
+                    <button type="button" class="close" onclick="$('#botonera').hide('slow');">&times;</button>
+                    {{registro}}
+                </div>
 
-            <!-- BOTONERA: -->
-            <div ng-include="'botoneraModems.jsp'"></div>
-            <!-- GRID -->
+                <!-- LOG ERRORES: -->
+                <div class="alert alert-danger col-xs-12" ng-show='lognok'>
+                    <button type="button" class="close" onclick="$('#botonera').hide('slow');">&times;</button>
+                   {{errores}}
+                </div>
+            </div>
+            
+            
+            <!-- SEARCH BAR -->
             <div>
                 <div class="form-group">
-                    <label></label>
-                    <input type="search" class="form-control" placeholder="Busqueda rapida.." ng-model="filtro" autofocus>
+                    <br>
+                    <div class="col-xs-8">
+                        <input type="search" class="form-control" placeholder="Busque modems rapidamente aquí.." ng-model="filtro" autofocus>
+                    </div>
+                    <div class="col-xs-4">
+                        <button class="btn btn-success col-xs-6" data-toggle="modal" data-target="#modalModems" ng-click="pedirUsuarioSugerido()">
+                            <span class="glyphicon glyphicon-plus"></span> Agregar Modem
+                        </button>
+                        <button class="btn btn-warning col-xs-5 col-xs-offset-1"  data-toggle="modal" data-target="#modalConsola"  ng-click="pedirConsola()">
+                            <span class="glyphicon glyphicon-console"></span> Log de radius
+                        </button>
+                    </div>
                 </div>
                 
-                
-                <table class="table table-responsive table-hover" style="margin-top: 10px;">
-                    <thead>
-                        <tr>
-                            <td class="table-headers" ng-click="cambiarFiltro('nombreADSL')"><span class="glyphicon glyphicon-filter"></span> Nombre ADSL</td>
-                            <td class="table-headers" ng-click="cambiarFiltro('direccionIP')"><span class="glyphicon glyphicon-filter"></span> Direccion IP</td>
-                            <td class="table-headers" ng-click="cambiarFiltro('observaciones')"><span class="glyphicon glyphicon-filter"></span> Observaciones</td>
-                            <td class="table-headers" ng-click="cambiarFiltro('reintentos')"><span class="glyphicon glyphicon-filter"></span> Reintentos</td>
-                            <td class="table-headers"><span class="glyphicon glyphicon-remove"></span> Borrar</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="modem in modems | filter:filtro | orderBy:filtrarPor" data-modem="{{modem}}">
-                            <td><button class="btn btn-default" data-bind="{{modem}}" ng-click="seleccionarModem(modem)" data-toggle="modal" data-target="#modalModems"><span class="glyphicon glyphicon-pencil"></span> {{modem.nombreADSL}}</button></td>
-                            <td valign="middle">{{modem.direccionIP}}</td>
-                            <td valign="middle">{{modem.observaciones}}</td>
-                            <td valign="middle">{{modem.reintentos}}</td>
-                            <td><button class="btn btn-danger" data-bind="{{modem}}" ng-click="borrarModem(modem)"><span class="glyphicon glyphicon-remove"></span></button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <!-- GRID -->
+                <div class="col-xs-12">
+                    <table class="table table-responsive table-hover" style="margin-top: 10px;">
+                        <thead>
+                            <tr>
+                                <td class="table-headers" ng-click="cambiarFiltro('nombreADSL')"><span class="glyphicon glyphicon-filter"></span> Nombre ADSL</td>
+                                <td class="table-headers" ng-click="cambiarFiltro('direccionIP')"><span class="glyphicon glyphicon-filter"></span> Direccion IP</td>
+                                <td class="table-headers" ng-click="cambiarFiltro('observaciones')"><span class="glyphicon glyphicon-filter"></span> Observaciones</td>
+                                <td class="table-headers" ng-click="cambiarFiltro('reintentos')"><span class="glyphicon glyphicon-filter"></span> Reintentos</td>
+                                <td class="table-headers"><span class="glyphicon glyphicon-remove"></span> Borrar</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="modem in modems | filter:filtro | orderBy:filtrarPor" data-modem="{{modem}}">
+                                <td><button class="btn btn-default" data-bind="{{modem}}" ng-click="seleccionarModem(modem)" data-toggle="modal" data-target="#modalModems"><span class="glyphicon glyphicon-pencil"></span> {{modem.nombreADSL}}</button></td>
+                                <td valign="middle">{{modem.direccionIP}}</td>
+                                <td valign="middle">{{modem.observaciones}}</td>
+                                <td valign="middle">{{modem.reintentos}}</td>
+                                <td><button class="btn btn-danger" data-bind="{{modem}}" ng-click="borrarModem(modem)"><span class="glyphicon glyphicon-remove"></span></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+            
             <!-- IMG ESPERA: -->
-            <img src='res/img/progress.gif' ng-hide='loaded' class='col-xs-4 col-xs-offset-4 img-thumbnail img-responsive'>
-            <h3 class="hx col-xs-4 col-xs-offset-4" ng-hide='loaded'>Cargando..</h3>        
-
-            <!-- BOTONERA: -->
-            <div ng-include="'botoneraModems.jsp'"></div>
-
+            <div class="col-xs-4 col-xs-offset-4" ng-hide='loaded' style="background-color:rgba(0,0,0,0.25);">
+                <img src='res/img/progress.gif' class='img-thumbnail img-responsive'>
+                <h3 class="hx col-xs-4 col-xs-offset-4" ng-hide='loaded'>Cargando..</h3>     
+            </div>
+            
             <!-- MODAL -->
             <div id="modalModems" class="modal fade" role="dialog">
                 <div class="modal-dialog">
@@ -71,32 +88,41 @@
                         </div>
 
                         <div class="modal-body">
-                            <!--<form method="post" action='{{urlActionFormulario}}'>-->
+                            <form ng-submit="submit()">
                                 <div class="form-group">
-                                    <label>Usuario:</label>
-                                    <input type="text" class="form-control" placeholder="Nombre.." name="usuario" ng-model="modemSeleccionado.nombreADSL" ng-readonly="modoEdicion" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Reintentos:</label>
-                                    <input type="number" class="form-control" placeholder="Reintentos.." name="reintentos" ng-model="modemSeleccionado.reintentos" required min="-1" max="3">
-                                </div>
-                                <div class="form-group">
-                                    <label>Observaciones:</label>
-                                    <input type="text" class="form-control" placeholder="Descripcion del VPN.." name="observaciones" ng-model="modemSeleccionado.observaciones" autofocus required>
+                                    <label>Nombre:</label>
+                                    <input type="text" ng-model="modemSeleccionado.nombreADSL" class="form-control" placeholder="Nombre.." required ng-readonly="modoEdicion">
                                 </div>
                                 <div class="form-group">
                                     <label>Direccion IP:</label>
-                                    <input type="text" id="inputIP" class="form-control" placeholder="xxx.xxx.xxx.xxx"  name="direccionIP" ng-keyDown="validarIP()" ng-keyUp="validarIP()" ng-model="modemSeleccionado.direccionIP"  ng-readonly="modoEdicion" required>
+                                    <input type="text" ng-model="modemSeleccionado.direccionIP" class="form-control" placeholder="Direccion IP.."
+                                           id="inputIP" ng-keypress="validarIP()" ng-keyup="validarIP()" required
+                                           >
                                 </div>
-
-                                <button class="btn btn-success form-control" ng-hide="modoEdicion" ng-click="addModem()"><span class="glyphicon glyphicon-ok" ></span> Cargar Nuevo Modem</button>
-                                <button class="btn btn-primary form-control" ng-show="modoEdicion" ng-click="updateModem()"><span class="glyphicon glyphicon-pencil"></span> Editar Modem</button>
-                            <!--</form>-->
+                                <div class="form-group">
+                                    <label>Observaciones:</label>
+                                    <input type="text" ng-model="modemSeleccionado.observaciones" class="form-control" placeholder="Observaciones.." required ng-readonly="modoEdicion" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <label>Reintentos:</label>
+                                    <input type="number" ng-model="modemSeleccionado.reintentos" class="form-control" placeholder="Reintentos.." min="-1" max="3">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit"  class="btn btn-success form-control" ng-hide="modoEdicion">
+                                        <span class=""></span> Agregar Modem
+                                    </button>
+                                    <button type="submit" class="btn btn-primary form-control" ng-show="modoEdicion">
+                                        <span class=""></span> Update Modem
+                                    </button>
+                                </div>
+                            </form>
                         </div>
 
                     </div>
                 </div>
             </div>
+
+            <!-- CONSOLA -->
             <div id="modalConsola" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -116,256 +142,7 @@
             </div>
 
         </div>
-        
+        <%@include file="footer.jsp" %>
     </body>
-    <script>
-        app = angular.module('app', []);
-
-        app.controller('controller', function($scope, $http) 
-        {
-            $scope.filtrarPor = "nombreADSL";
-            
-            $scope.modemSeleccionado;
-            $scope.modoEdicion = false;
-            
-            $scope.urlWS = "../WS/modemsWS.jsp";
-            $scope.urlAddMode = $scope.urlWS + "?action=add";
-            $scope.urlUpdateMode = $scope.urlWS +"?action=update";
-            $scope.urlRemoveMode = $scope.urlWS + "?action=delete";
-            $scope.loaded = false;
-            
-            $scope.logok = false;
-            $scope.lognok = false;
-            $scope.registro = "";
-            $scope.errores = "";
-            $scope.log = function(que)
-            {
-                $scope.registro = que;
-                $scope.logok = true;
-                $scope.lognok = false;
-            }
-            $scope.error = function(que)
-            {
-                $scope.errores = que;
-                $scope.logok = false;
-                $scope.lognok = true;
-            }
-            $scope.listarModems = function()
-            {
-                console.log("listando modems..")
-                //$scope.log("listando modems..");
-                $.ajax({url:$scope.urlWS + "?action=list",async: false, beforeSend: function (xhr)
-                {
-                    $scope.loaded = false;
-                }}).done(function(response)
-                {
-                    //console.log("Listado: " + response);
-                    $scope.modems = JSON.parse(response);
-                    
-                    if($scope.modems != null)
-                    {
-                        $scope.loaded = true;  
-                    }
-                    
-                    $scope.pedirUsuarioSugerido();
-                    
-                });
-            }
-            $scope.pedirUsuarioSugerido = function()
-            {
-                $.ajax({url:"../WS/sugerenciaUsuarioADSLWS.jsp"}).done(function(response)
-                {
-                    //console.log("Usuario sugerido: " + response);
-                    
-                    $scope.modemSeleccionado = JSON.parse(response);
-                    
-                    //$scope.log("modemSelecionado:" + $scope.modemSeleccionado.nombreADSL );
-                    
-                });
-            }
-            $scope.cambiarFiltro  = function(filtro)
-            {
-                $scope.filtrarPor = filtro;
-                console.log("cambiarFiltro:" + filtro);
-            };
-            $scope.seleccionarModem = function(modem)
-            {
-                console.log("modem seleccionado = " + modem);
-                $scope.modemSeleccionado = modem;
-                $scope.modoEdicion = true;
-            }
-            $scope.modoAlta = function()
-            {
-                //$scope.modemSeleccionado = null;
-                $scope.pedirUsuarioSugerido();
-                $scope.modoEdicion = false;
-                
-            }     
-            $scope.validarIP = function()
-            {
-                todoCorrecto = true;
-                entrada = $("#inputIP");
-                texto = $(entrada).val();
-
-                console.log("IP escrita:" + texto);
-
-                vectorTexto = texto.split(".");
-
-                for(i = 0 ; i < vectorTexto.length;i++ )
-                {
-                    if(isNaN(vectorTexto[i]))
-                    {
-                        todoCorrecto = false;
-                        console.log("No es numero : " + i);
-                    }
-                    else if(parseInt(vectorTexto[i]) > 254 )
-                    {
-                        todoCorrecto = false;
-                       console.log("No es ip : " + i);
-                    }
-
-
-                    if(vectorTexto[i].length > 3)
-                    {
-                        todoCorrecto = false;
-                        console.log("No es ip : " + i);
-                    }
-                }
-                console.log("modoEdicion: "  + $scope.modoEdicion);
-                if(!$scope.modoEdicion)
-                {
-                    $.ajax({url:"../WS/existeIPWS.jsp",data:{"ip":texto},async: false}).done(function(response)
-                    {
-                        console.log("response:" + response);
-
-                        if(response=="true")
-                        {
-                            todoCorrecto = false;
-                        }
-                    });
-                }
-
-
-                if(todoCorrecto)
-                {
-                    $(entrada).css("border","solid 2px green");
-                    return true;
-                }
-                else
-                {
-                    $(entrada).css("border","solid 2px red");
-                    return false;
-                }
-
-                console.log(vectorTexto);
-
-            }
-            $scope.verifverificarTodosLosCampos = function()
-            {
-                console.log(validarIP());
-
-                if(validarIP())
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }   
-            }
-            $scope.addModem = function()
-            {
-                console.log("addModem");
-                //ValidarFormatoIP();
-                //ValidarIPExiste();
-                //ValidarNombreADSL();
-                //ValidarObservaciones();
-                
-                console.log("modemSeleccionado:"  + JSON.stringify($scope.modemSeleccionado));
-                
-                $.ajax({url:$scope.urlAddMode,async: false,data:{"modem": JSON.stringify($scope.modemSeleccionado)}}).done(function(response)
-                {
-                    console.log(response);
-                    
-                    $('#modalModems').modal('hide');
-                    
-                    $scope.listarModems();
-                    
-                    if(response.trim() == "true")
-                    {
-                        $scope.log($scope.modemSeleccionado.nombreADSL + " agregado satisfactoriamente!");
-                    }
-                    else
-                    {
-                        $scope.error($scope.modemSeleccionado.nombreADSL + " no se pudo agregar.");
-                    }
-                });
-                $scope.pedirUsuarioSugerido();
-            }
-            $scope.borrarModem = function(modem)
-            {
-                if(confirm("Seguro que queres borrar : " + modem.nombreADSL +" > "+ modem.observaciones))
-                {
-                    $("tr").each(function(index,element)
-                    {
-                        var obj = $(element).data("modem");
-
-                        if(obj != null)
-                        {
-                           //console.log(obj  +" | " + obj.nombreADSL);
-                           
-                            if(modem.nombreADSL == obj.nombreADSL)
-                            {
-                                $(element).remove();
-                                    
-                                console.log("url:" + $scope.urlRemoveMode);
-                                
-                                $.ajax({url:$scope.urlRemoveMode,async: false,data: {"modem":JSON.stringify(modem)}}).done(function(response)
-                                {
-                                    console.log("eliminé " + modem.nombreADSL + " = " + response );
-                                    
-                                    if(response.trim() == "true")
-                                    {
-                                        $scope.log(modem.nombreADSL + " borrado con exito!");
-                                    }
-                                    else
-                                    {
-                                        $scope.error(modem.nombreADSL + " no se pudo borrar.");
-                                    }
-                                    
-                                });    
-                            }
-                        }
-                    });
-                }
-                else
-                {
-                    //console.log("conservo " + modem.id);
-                }
-                $scope.pedirUsuarioSugerido();
-            }
-            $scope.updateModem = function()
-            {
-                console.log("update modem: " + $scope.modemSeleccionado.nombreADSL);
-                
-                $('#modalModems').modal('hide');
-                
-                $.ajax({url:$scope.urlUpdateMode,data:{"modem": JSON.stringify($scope.modemSeleccionado)},async: false}).done(function(response)
-                {
-                    console.log("response:" + response);
-                    if(response.trim() == "true")
-                    {
-                        $scope.log($scope.modemSeleccionado.nombreADSL + " updateado satisfactoriamente!");
-                    }
-                    else
-                    {
-                        $scope.error($scope.modemSeleccionado.nombreADSL + " no se pudo updatear.");
-                    }
-                });                
-            }
-            
-            //HACER AL INICIO:
-            $scope.listarModems();
-        });
-    </script>
+    <script src="res/javascript/angularControllerModems.js"></script>
 </html>

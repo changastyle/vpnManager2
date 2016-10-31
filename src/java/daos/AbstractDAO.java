@@ -1,6 +1,7 @@
 package daos;
 
 import java.util.ArrayList;
+import model.Radcheck;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -314,6 +315,11 @@ public class AbstractDAO
         desconectar();
 
         return updateo;
+    }
+
+    static boolean delete(Radcheck radcheck)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

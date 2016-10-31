@@ -95,25 +95,4 @@
     </style>
     
     <script src='controllers.js'></script>
-    <script>
-        $(document).ready(function()
-        {
-            //Procesa la URL Actual:
-            urlActual = window.location.href;
-            vectorSplit = urlActual.split("/");
-            urlActual = vectorSplit[ (vectorSplit.length - 1) ];
-            
-            console.log( "ready: " + urlActual);
-            
-             /*$(".nav-item").each(function(index,element)
-             {
-                 if($(element).attr("href") == urlActual)
-                 {
-                    $(element).parent("li").addClass("active");
-                    console.log($(element).attr("href"));
-                 }
-             });
-            */
-        });
-    </script>
 </head>

@@ -8,9 +8,9 @@ public class RadreplyDAO
     {
         java.util.ArrayList<model.Radreply>  arr = new java.util.ArrayList<model.Radreply> ();
         
-        String hql = "from Radreply";
+        String hql = "SELECT r FROM Radreply r";
         
-        for(Object o : daos.AbstractDAO.findAll(hql))
+        for(Object o : daos.DAOEclipse.findAllByJPQL(hql))
         {
             arr.add((model.Radreply) o);
         }
@@ -21,6 +21,6 @@ public class RadreplyDAO
 
     public static boolean save(Radreply radreply)
     {
-        return daos.AbstractDAO.saveOneNew(radreply);
+        return daos.DAOEclipse.save(radreply);
     }
 }

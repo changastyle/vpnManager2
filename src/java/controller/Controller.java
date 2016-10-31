@@ -72,7 +72,7 @@ public class Controller
        {
            boolean existe = false;
            
-           System.out.println("contador :" + contador);
+           //System.out.println("contador :" + contador);
            for(Modem modem : arr)
            {
                String[] v = modem.getDireccionIP().split(Pattern.quote("."));
@@ -82,7 +82,7 @@ public class Controller
                    try
                    {
                         int tercerTupla = Integer.parseInt(v[3]);
-                        System.out.println(modem.getDireccionIP() + "|" + tercerTupla);
+                        //System.out.println(modem.getDireccionIP() + "|" + tercerTupla);
                         
                         if(tercerTupla == contador)
                         {

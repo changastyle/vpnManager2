@@ -1,0 +1,53 @@
+.banner
+{
+    height: 100px;
+    padding:0px;
+    
+    overflow: hidden;
+    background: rgb(255,213,101);
+    background: -moz-linear-gradient(top,  rgba(255,213,101,1) 2%, rgba(229,191,90,1) 99%, rgba(229,191,90,1) 99%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(255,213,101,1) 2%,rgba(229,191,90,1) 99%,rgba(229,191,90,1) 99%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(255,213,101,1) 2%,rgba(229,191,90,1) 99%,rgba(229,191,90,1) 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffd565', endColorstr='#e5bf5a',GradientType=0 ); /* IE6-9 */
+
+}
+.partes-banner
+{
+   // border:solid 2px black;
+}
+.izq-banner
+{
+    height: 100%;
+    cursor:pointer;
+    //background-image: url('../img/vpn.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    text-align: center;
+    font-family: Prototype;
+    font-size: 36px;
+    padding-top:18px;
+}
+#enlace-izq
+{
+    text-decoration: none;
+    color:black;
+}
+.mid-banner
+{
+    height: 100%;
+    padding: 0px;
+    padding-left:8px;
+    padding-right:8px;
+}
+#barraBusquedaMaestra
+{
+}
+.der-banner
+{
+    height: 100%;
+    padding:12px;
+    padding-top:26px;
+    text-align: center;
+}
